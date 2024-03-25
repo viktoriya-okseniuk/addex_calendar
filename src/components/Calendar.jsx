@@ -1,7 +1,16 @@
-import '../assets/styles/calendar.css'
+import "../assets/styles/calendar.css";
+import { getDays } from "../utils/calendar.ts";
 
 export const Calendar = () => {
-  const daysCount = 30
+  const longMonth = new Date().toLocaleString("en-EN", { month: "long" });
+  const month = new Date().getMonth() + 1;
+  const year = new Date().getFullYear();
+  const daysCount = [...Array(getDays(year, month)).keys()];
+
+  const date = new Date();
+  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+
+  [...Array(firstDay).keys()].forEach((el) => daysCount.unshift(-1));
   return (
     <div className="calendar">
       <div className="calendar__nav">
@@ -10,10 +19,8 @@ export const Calendar = () => {
             <button>up</button>
             <button>down</button>
           </div>
-          <div>Month</div>
           <div>
-            <button>week</button>
-            <button>month</button>
+            {longMonth}, {year}
           </div>
         </div>
         <div className="calendar__nav__days">
@@ -27,12 +34,28 @@ export const Calendar = () => {
         </div>
       </div>
       <div className="calendar__board">
-        {[...Array(daysCount).keys()].map(el => (
-          <div className="calendar__board__card">
-            {el.toString()}
-          </div>
-        ))}
+        {daysCount.map((el) => {
+          if (el.toString() === "-1")
+            return (
+              <div
+                last-month="true"
+                key={Math.random(new Date()) + el}
+                className="calendar__board__card"
+              ></div>
+            );
+          return (
+            <div
+              key={Math.random(new Date()) + el}
+              className="calendar__board__card"
+            >
+              <p className="calendar__board__card__day">
+                {(el + 1).toString()}
+              </p>
+              <button className="calendar__board__card__add-btn">+</button>
+            </div>
+          );
+        })}
       </div>
     </div>
-  )
-}
+  );
+};
