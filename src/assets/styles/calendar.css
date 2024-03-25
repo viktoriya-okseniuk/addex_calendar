@@ -1,0 +1,27 @@
+.calendar {
+}
+.calendar__nav {
+  border-bottom: 1px solid rgb(221, 221, 221);
+}
+.calendar__nav__panel {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 0 5px;
+}
+.calendar__nav__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.calendar__nav__days p {
+  text-align: center;
+}
+.calendar__board {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  padding: 10px;
+}
+.calendar__board__card {
+  background-color: rgb(236, 236, 236);
+}
